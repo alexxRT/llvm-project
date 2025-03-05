@@ -2,12 +2,13 @@
 #define LLVM_LIB_TARGET_X52_X52TARGETMACHINE_H
 
 #include "llvm/Target/TargetMachine.h"
+#include "llvm/CodeGen/CodeGenTargetMachineImpl.h"
 #include <optional>
 
 namespace llvm {
 extern Target TheX52Target;
 
-class X52TargetMachine : public LLVMTargetMachine {
+class X52TargetMachine : public CodeGenTargetMachineImpl {
   std::unique_ptr<TargetLoweringObjectFile> TLOF;
 public:
   X52TargetMachine(const Target &T, const Triple &TT, StringRef CPU,
@@ -29,4 +30,4 @@ public:
 };
 } // end namespace llvm
 
-#endif // LLVM_LIB_TARGET_LALA_LALATARGETMACHINE_H
+#endif // LLVM_LIB_TARGET_X52_X52TARGETMACHINE_H
