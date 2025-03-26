@@ -6,6 +6,7 @@
 #include "llvm/MC/MCSubtargetInfo.h"
 #include "llvm/MC/TargetRegistry.h"
 #include "X52MCAsmInfo.h"
+#include "X52InstPrinter.h"
 #include "llvm/MC/MCDwarf.h"
 #include "llvm/Support/ErrorHandling.h"
 
@@ -48,6 +49,15 @@ static MCAsmInfo *createX52MCAsmInfo(const MCRegisterInfo &MRI, const Triple &TT
 	return MAI;
 }
 
+static MCInstPrinter *createX52MCInstPrinter(const Triple &T,
+	unsigned SyntaxVariant,
+	const MCAsmInfo &MAI,
+	const MCInstrInfo &MII,
+	const MCRegisterInfo &MRI) {
+
+	return new X52InstPrinter(MAI, MII, MRI);
+}
+
 
 // We need to define this function for linking succeed
 extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeX52TargetMC() {
@@ -60,4 +70,5 @@ createX52MCRegisterInfo);
 createX52MCInstrInfo);
 	TargetRegistry::RegisterMCSubtargetInfo(TheX52Target,
 createX52MCSubtargetInfo);
+	TargetRegistry::RegisterMCInstPrinter(TheX52Target, createX52MCInstPrinter);
 }
