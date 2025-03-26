@@ -2,7 +2,7 @@
 #include "X52Subtarget.h"
 #include "X52TargetMachine.h"
 #include "TargetInfo/X52TargetInfo.h"
-#include "MCTargetDesc/X52MCTargetDesc.h"
+#include "X52.h"
 #include "llvm/ADT/Statistic.h"
 #include "llvm/CodeGen/AsmPrinter.h"
 #include "llvm/CodeGen/MachineConstantPool.h"

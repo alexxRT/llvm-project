@@ -1,5 +1,6 @@
 
 #include "X52TargetMachine.h"
+#include "X52.h"
 #include "TargetInfo/X52TargetInfo.h"
 #include "llvm/CodeGen/Passes.h"
 #include "llvm/CodeGen/TargetLoweringObjectFileImpl.h"
@@ -34,7 +35,12 @@ namespace {
         X52PassConfig(X52TargetMachine &TM, PassManagerBase &PM)
             : TargetPassConfig(TM, PM) {}
 
+            X52TargetMachine& getX52TargetMachine() const {
+                return getTM<X52TargetMachine>();
+            }
+
         bool addInstSelector() override {
+            addPass(createX52ISelDag(getX52TargetMachine(), getOptLevel()));
             return false;
         }
     };
@@ -43,7 +49,6 @@ namespace {
 TargetPassConfig *X52TargetMachine::createPassConfig(PassManagerBase &PM) {
     return new X52PassConfig(*this, PM);
 }
-
 
 static Reloc::Model getEffectiveRelocModel(bool JIT,
                                            std::optional<Reloc::Model> RM) {
