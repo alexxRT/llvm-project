@@ -1,5 +1,6 @@
 add_llvm_component_library(LLVMX52Desc
   X52MCTargetDesc.cpp
+  X52MCAsmInfo.cpp
 
   LINK_COMPONENTS
   MC
