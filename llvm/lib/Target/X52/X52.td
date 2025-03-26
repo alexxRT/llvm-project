@@ -7,7 +7,6 @@ class Proc<string Name, list<SubtargetFeature> Features>
 
  def : Proc<"generic", []>;
 
-
 def X52InstrInfo : InstrInfo;
 def X52 : Target {
     let InstructionSet = X52InstrInfo;
