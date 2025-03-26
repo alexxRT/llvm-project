@@ -6,6 +6,7 @@
 #include "llvm/CodeGen/TargetPassConfig.h"
 #include "llvm/IR/LegacyPassManager.h"
 #include "llvm/MC/TargetRegistry.h"
+#include "llvm/CodeGen/TargetPassConfig.h"
 // #include "llvm/Transforms/IPO/PassManagerBuilder.h"
 // #include "llvm/include/llvm/Support/CodeGen.h"
 #include "llvm/Transforms/Scalar.h"
@@ -24,6 +25,25 @@ static std::string computeDataLayout(const Triple &TT, StringRef CPU,
   std::string Ret = "e-m:e-p:32:32-i8:8:32-i16:16:32-i64:64-n32";
   return Ret;
 }
+
+
+namespace {
+    /// X52 Code Generator Pass Configuration Options.
+    class X52PassConfig : public TargetPassConfig {
+    public:
+        X52PassConfig(X52TargetMachine &TM, PassManagerBase &PM)
+            : TargetPassConfig(TM, PM) {}
+
+        bool addInstSelector() override {
+            return false;
+        }
+    };
+} // end anonymous namespace
+
+TargetPassConfig *X52TargetMachine::createPassConfig(PassManagerBase &PM) {
+    return new X52PassConfig(*this, PM);
+}
+
 
 static Reloc::Model getEffectiveRelocModel(bool JIT,
                                            std::optional<Reloc::Model> RM) {
@@ -53,7 +73,3 @@ X52TargetMachine::X52TargetMachine(const Target &T, const Triple &TT,
                                          std::optional<CodeModel::Model> CM,
                                          CodeGenOptLevel OL, bool JIT)
     : X52TargetMachine(T, TT, CPU, FS, Options, RM, CM, OL, JIT, true) {}
-
-TargetPassConfig *X52TargetMachine::createPassConfig(PassManagerBase &PM) {
-  return new TargetPassConfig(*this, PM);
-}
