@@ -8,6 +8,7 @@
 #define GET_INSTRINFO_ENUM
 #include "X52GenInstrInfo.inc"
 
+#include <memory>
 namespace llvm {
     class MCCodeEmitter;
     class MCContext;
@@ -23,6 +24,9 @@ namespace llvm {
     MCAsmBackend* createX52AsmBackend(const Target &T, const MCSubtargetInfo &STI,
         const MCRegisterInfo &MRI,
         const MCTargetOptions &Options);
+
+    std::unique_ptr<MCObjectTargetWriter> createX52ELFObjectWriter(bool Is64Bit,
+            uint8_t OSABI);
 }
 
 

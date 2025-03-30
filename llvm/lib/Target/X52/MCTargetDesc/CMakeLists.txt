@@ -4,6 +4,7 @@ add_llvm_component_library(LLVMX52Desc
   X52InstPrinter.cpp
   X52MCCodeEmitter.cpp
   X52AsmBackend.cpp
+  X52ELFObjectWriter.cpp
 
   LINK_COMPONENTS
   MC

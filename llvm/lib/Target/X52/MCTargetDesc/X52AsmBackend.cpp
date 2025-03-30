@@ -47,7 +47,10 @@ class ELFX52AsmBackend : public X52AsmBackend {
                 const MCSubtargetInfo *STI) const override { return; }
 
         std::unique_ptr<MCObjectTargetWriter>
-        createObjectTargetWriter() const override {}
+        createObjectTargetWriter() const override {
+            uint8_t OSABI = MCELFObjectTargetWriter::getOSABI(OSType);
+            return createX52ELFObjectWriter(false, OSABI);
+        }
 };
 
 } // end anonymous namespace
