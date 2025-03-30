@@ -23,7 +23,7 @@ let DiagnosticType = !strconcat("Invalid", Name);
 
 def simm16 : Operand<i32>, ImmLeaf<i32, [{return isInt<16>(Imm);}]> {
 let ParserMatchClass = X52mAsmOperand<16>;
-let EncoderMethod = "getImmOpValue";
+let EncoderMethod = "getSImm16OpValue";
 let DecoderMethod = "decodeX52mOperand<16>";
 let MCOperandPredicate = [{
     int64_t Imm;
@@ -39,9 +39,10 @@ let OperandNamespace = "X52Op";
 // X52 Instructions
 //===----------------------------------------------------------------------===//
 
-let hasSideEffects = 0, mayLoad = 0, mayStore = 0, isCall = 1, isBranch = 1, isTerminator = 1 in
-def BR : X52Inst<0x0, (outs), (ins GPR:$rs1), "BR $rs1",
-                [(brind GPR:$rs1)]>;
+let hasSideEffects = 0, mayLoad = 0, mayStore = 0, isCall = 1, isBranch = 1, isTerminator = 1, r2 = 0,
+r3_imm = 0 in
+def BR : X52Inst<0xBB, (outs), (ins GPR:$r1), "BR $r1",
+                [(brind GPR:$r1)]>;
 
 let isBarrier = 1, isReturn = 1, isTerminator = 1 in
 def PseudoRET : X52PseudoInst<(outs), (ins), "# PseudoRET",
@@ -49,7 +50,7 @@ def PseudoRET : X52PseudoInst<(outs), (ins), "# PseudoRET",
                 PseudoInstExpansion<(BR R0)>;
 
 // movli
-let isAsCheapAsAMove = 1, isCodeGenOnly = 1, isReMaterializable = 1 in
-def MOVLI : X52Inst<0x0, (outs GPR:$rd), (ins simm16:$imm),
-                    "MOVli $rd $imm",
-                    [(set GPR:$rd, simm16:$imm)]>;
+let isAsCheapAsAMove = 1, isCodeGenOnly = 1, isReMaterializable = 1, r2 = 0 in
+def MOVLI : X52Inst<0xAA, (outs GPR:$r1), (ins simm16:$r3_imm),
+                    "MOVli $r1 $r3_imm",
+                    [(set GPR:$r1, simm16:$r3_imm)]>;
