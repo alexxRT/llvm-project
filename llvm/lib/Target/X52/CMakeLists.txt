@@ -20,6 +20,7 @@ add_llvm_target(X52CodeGen
   X52AsmPrinter.cpp
   X52ISelDagToDag.cpp
   X52ISelLowering.cpp
+  X52MCInstLower.cpp
 
   LINK_COMPONENTS
   CodeGen

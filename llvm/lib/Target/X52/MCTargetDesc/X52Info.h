@@ -7,7 +7,7 @@ namespace llvm {
 
 namespace X52Op {
     enum OperandType : unsigned {
-        OPERAND_X52M16 = MCOI::OPERAND_FIRST_TARGET,
+        OPERAND_SIMM16 = MCOI::OPERAND_FIRST_TARGET,
     };
 } // namespace X52Op
 

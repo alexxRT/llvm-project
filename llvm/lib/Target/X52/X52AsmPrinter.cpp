@@ -41,6 +41,11 @@ public:
   }
 
   bool lowerPseudoInstExpansion (const MachineInstr *MI, MCInst &Inst);
+
+  bool lowerOperand(const MachineOperand &MO, MCOperand &MCOp) const {
+      return LowerX52MachineOperandToMCOperand(MO, MCOp, *this);
+  }
+
 };
 
 } // end anonymous namespace
@@ -49,11 +54,15 @@ public:
 
 void X52AsmPrinter::emitInstruction (const MachineInstr *MI) {
   // Do any auto-generated pseudo lowerings.
-  if (MCInst OutInst; lowerPseudoInstExpansion (MI, OutInst))
-    {
+  if (MCInst OutInst; lowerPseudoInstExpansion (MI, OutInst)) {
       EmitToStreamer (*OutStreamer, OutInst);
       return;
-    }
+  }
+
+  MCInst TmpInst;
+  if (!lowerX52MachineInstrToMCInst(MI, TmpInst, *this))
+    EmitToStreamer(*OutStreamer, TmpInst);
+
 }
 
 // Force static initialization.

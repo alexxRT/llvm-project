@@ -21,7 +21,7 @@ let RenderMethod = "addImmOperands";
 let DiagnosticType = !strconcat("Invalid", Name);
 }
 
-def X52m16 : Operand<i32>, ImmLeaf<i32, [{return isInt<16>(Imm);}]> {
+def simm16 : Operand<i32>, ImmLeaf<i32, [{return isInt<16>(Imm);}]> {
 let ParserMatchClass = X52mAsmOperand<16>;
 let EncoderMethod = "getImmOpValue";
 let DecoderMethod = "decodeX52mOperand<16>";
@@ -31,7 +31,7 @@ let MCOperandPredicate = [{
     return isInt<16>(Imm);
     return MCOp.isBareSymbolRef();
 }];
-let OperandType = "OPERAND_X52M16";
+let OperandType = "OPERAND_SIMM16";
 let OperandNamespace = "X52Op";
 }
 
@@ -50,6 +50,6 @@ def PseudoRET : X52PseudoInst<(outs), (ins), "# PseudoRET",
 
 // movli
 let isAsCheapAsAMove = 1, isCodeGenOnly = 1, isReMaterializable = 1 in
-def MOVLI : X52Inst<0x0, (outs GPR:$rd), (ins X52m16:$imm),
+def MOVLI : X52Inst<0x0, (outs GPR:$rd), (ins simm16:$imm),
                     "MOVli $rd $imm",
-                    [(set GPR:$rd, X52m16:$imm)]>;
+                    [(set GPR:$rd, simm16:$imm)]>;
