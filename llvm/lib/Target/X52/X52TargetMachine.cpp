@@ -50,6 +50,10 @@ TargetPassConfig *X52TargetMachine::createPassConfig(PassManagerBase &PM) {
     return new X52PassConfig(*this, PM);
 }
 
+TargetLoweringObjectFile* X52TargetMachine::getObjFileLowering() const {
+    return TLOF.get();
+}
+
 static Reloc::Model getEffectiveRelocModel(bool JIT,
                                            std::optional<Reloc::Model> RM) {
   if (!RM || JIT)
@@ -67,7 +71,7 @@ X52TargetMachine::X52TargetMachine(const Target &T, const Triple &TT,
     : CodeGenTargetMachineImpl(T, computeDataLayout(TT, CPU, Options, IsLittle), TT,
                         CPU, FS, Options, getEffectiveRelocModel(JIT, RM),
                         getEffectiveCodeModel(CM, CodeModel::Small), OL),
-      TLOF(std::make_unique<TargetLoweringObjectFileELF>()) {
+      TLOF(std::make_unique<TargetLoweringObjectFileELF>()), Subtarget(TT, std::string(CPU), std::string(FS), *this) {
   initAsmInfo();
 }
 

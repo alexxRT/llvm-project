@@ -10,7 +10,7 @@ using namespace llvm;
 #define GET_SUBTARGETINFO_CTOR
 #include "X52GenSubtargetInfo.inc"
 
-X52Subtarget::X52Subtarget(const StringRef &CPU, const StringRef &TuneCPU,
-                        const StringRef &FS, const TargetMachine &TM)
-    : X52GenSubtargetInfo(TM.getTargetTriple(), CPU, TuneCPU, FS) {
+X52Subtarget::X52Subtarget(const Triple &TT, const std::string &CPU,
+                        const std::string &FS, const TargetMachine &TM)
+    : X52GenSubtargetInfo(TT, CPU, /*TuneCPU=*/CPU, FS), TLInfo(TM, *this) {
 }
