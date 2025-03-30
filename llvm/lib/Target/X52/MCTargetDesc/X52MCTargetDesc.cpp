@@ -64,11 +64,9 @@ extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeX52TargetMC() {
 	Target& TheX52Target = getTheX52Target();
 
 	RegisterMCAsmInfoFn X(TheX52Target, createX52MCAsmInfo);
-	TargetRegistry::RegisterMCRegInfo(TheX52Target,
-createX52MCRegisterInfo);
-	TargetRegistry::RegisterMCInstrInfo(TheX52Target,
-createX52MCInstrInfo);
-	TargetRegistry::RegisterMCSubtargetInfo(TheX52Target,
-createX52MCSubtargetInfo);
+	TargetRegistry::RegisterMCRegInfo(TheX52Target, createX52MCRegisterInfo);
+	TargetRegistry::RegisterMCInstrInfo(TheX52Target, createX52MCInstrInfo);
+	TargetRegistry::RegisterMCSubtargetInfo(TheX52Target, createX52MCSubtargetInfo);
 	TargetRegistry::RegisterMCInstPrinter(TheX52Target, createX52MCInstPrinter);
+	TargetRegistry::RegisterMCCodeEmitter(TheX52Target, createX52MCCodeEmitter);
 }
