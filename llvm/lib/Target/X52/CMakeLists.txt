@@ -8,6 +8,7 @@ tablegen(LLVM X52GenSubtargetInfo.inc -gen-subtarget)
 tablegen(LLVM X52GenMCPseudoLowering.inc -gen-pseudo-lowering)
 tablegen(LLVM X52GenDAGISel.inc -gen-dag-isel)
 tablegen(LLVM X52GenCallingConv.inc -gen-callingconv)
+tablegen(LLVM X52GenAsmWriter.inc -gen-asm-writer)
 
 add_public_tablegen_target(X52CommonTableGen)
 

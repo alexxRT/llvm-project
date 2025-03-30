@@ -12,12 +12,16 @@ public:
                 const MCRegisterInfo &MRI)
         : MCInstPrinter(MAI, MII, MRI) {}
 
-    std::pair<const char *, uint64_t> getMnemonic(const MCInst &MI) const override {}
+    std::pair<const char *, uint64_t> getMnemonic(const MCInst &MI) const override;
+    void printInstruction(const MCInst *MI, uint64_t Address, raw_ostream& O);
+    static const char* getRegisterName(MCRegister Reg);
 
-    // Override MCInstPrinter.
-    void printRegName(raw_ostream &O, MCRegister Reg) override {}
+    void printRegName(raw_ostream &O, MCRegister Reg) override;
     void printInst(const MCInst *MI, uint64_t Address, StringRef Annot,
-                const MCSubtargetInfo &STI, raw_ostream &O) override {}
+                const MCSubtargetInfo &STI, raw_ostream &O) override;
+
+    void printOperand(const MCInst* MI, int OpNo, raw_ostream& O);
+
 };
 } // end namespace llvm
 
