@@ -1,6 +1,7 @@
 include "llvm/Target/Target.td"
 include "X52RegisterInfo.td"
 include "X52InstrInfo.td"
+include "X52CallingConv.td"
 
 class Proc<string Name, list<SubtargetFeature> Features>
   : Processor<Name, NoItineraries, Features>;
