@@ -5,10 +5,12 @@
 
 namespace llvm {
 
+class X52Subtarget;
+
 class X52FrameLowering : public TargetFrameLowering {
 public:
-    explicit X52FrameLowering() : TargetFrameLowering(TargetFrameLowering::StackGrowsDown, Align(4), 0) {
-
+    explicit X52FrameLowering(const X52Subtarget& STI) : TargetFrameLowering(TargetFrameLowering::StackGrowsDown, Align(4), 0),
+        STI(STI) {
     };
 
     /// emitProlog/emitEpilog - These methods insert prolog and epilog code into
@@ -22,6 +24,9 @@ public:
     /// frame pointer register. For most targets this is true only if the function
     /// has variable sized allocas or if frame pointer elimination is disabled.
     bool hasFPImpl(const MachineFunction &MF) const override { return false; }
+
+private:
+        const X52Subtarget& STI;
 };
 
 } // namespace llvm

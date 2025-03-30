@@ -12,5 +12,7 @@ using namespace llvm;
 
 X52Subtarget::X52Subtarget(const Triple &TT, const std::string &CPU,
                         const std::string &FS, const TargetMachine &TM)
-    : X52GenSubtargetInfo(TT, CPU, /*TuneCPU=*/CPU, FS), TLInfo(TM, *this) {
-}
+    : X52GenSubtargetInfo(TT, CPU, /*TuneCPU=*/CPU, FS), TLInfo(TM, *this),
+      FrameLowering(*this) {
+
+    };
