@@ -23,6 +23,8 @@ struct X52RegisterInfo : public X52GenRegisterInfo {
 
         // Debug information queries.
         Register getFrameRegister(const MachineFunction &MF) const override;
+
+        const MCPhysReg* getCalleeSavedRegs(const MachineFunction* MF) const override;
 };
 
 } // end namespace llvm

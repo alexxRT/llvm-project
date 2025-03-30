@@ -23,7 +23,7 @@ class X52Subtarget : public X52GenSubtargetInfo {
             return &TLInfo;
         }
         const TargetRegisterInfo* getRegisterInfo() const override {
-            return &RegisterInfo
+            return &RegisterInfo;
         }
         const X52FrameLowering* getFrameLowering() const override {
             return &FrameLowering;
