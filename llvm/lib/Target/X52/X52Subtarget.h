@@ -3,6 +3,7 @@
 
 #include "llvm/CodeGen/TargetSubtargetInfo.h"
 #include "X52FrameLowering.h"
+#include "X52RegisterInfo.h"
 #include "X52ISelLowering.h"
 
 #define GET_SUBTARGETINFO_HEADER
@@ -22,7 +23,7 @@ class X52Subtarget : public X52GenSubtargetInfo {
             return &TLInfo;
         }
         const TargetRegisterInfo* getRegisterInfo() const override {
-            return nullptr;
+            return &RegisterInfo
         }
         const X52FrameLowering* getFrameLowering() const override {
             return &FrameLowering;
@@ -30,6 +31,7 @@ class X52Subtarget : public X52GenSubtargetInfo {
     private:
         X52TargetLowering TLInfo;
         X52FrameLowering FrameLowering;
+        X52RegisterInfo RegisterInfo;
 };
 
 } // end namespace llvm
