@@ -1,12 +1,16 @@
 	.file	"main.ll"
 	.text
-	.globl	main                            ; -- Begin function main
-	.type	main,@function
-main:                                   ; @main
-; %bb.0:
-	MOVli r9 12
+	.globl	app                             ; -- Begin function app
+	.type	app,@function
+app:                                    ; @app
+; %bb.0:                                ; %entry
+	MOVli r2 3
+	MOVli r4 2
+	MOVli r9 1
+	PAINTPIXEL r9 r4 r2
+	FLUSH
 	BR r0
 .Lfunc_end0:
-	.size	main, .Lfunc_end0-main
+	.size	app, .Lfunc_end0-app
                                         ; -- End function
 	.section	".note.GNU-stack","",@progbits

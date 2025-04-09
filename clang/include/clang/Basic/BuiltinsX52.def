@@ -1,0 +1,4 @@
+BUILTIN(x52PaintPixel, "vUiUiUi", "nc")
+BUILTIN(x52Flush, "v", "nc")
+
+#undef BUILTIN

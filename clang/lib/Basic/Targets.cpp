@@ -39,6 +39,7 @@
 #include "Targets/VE.h"
 #include "Targets/WebAssembly.h"
 #include "Targets/X86.h"
+#include "Targets/X52.h"
 #include "Targets/XCore.h"
 #include "Targets/Xtensa.h"
 #include "clang/Basic/Diagnostic.h"
@@ -469,6 +470,9 @@ std::unique_ptr<TargetInfo> AllocateTarget(const llvm::Triple &Triple,
     default:
       return std::make_unique<RISCV64TargetInfo>(Triple, Opts);
     }
+
+  case llvm::Triple::X52:
+    return std::make_unique<X52TargetInfo>(Triple, Opts);
 
   case llvm::Triple::sparc:
     switch (os) {

@@ -401,6 +401,16 @@ namespace clang {
   };
   }
 
+  /// x52 builtins
+  namespace X52 {
+    enum {
+      LastTIBuiltin = clang::Builtin::FirstTSBuiltin-1,
+      #define BUILTIN(ID, TYPE, ATTRS) BI##ID,
+      #include "clang/Basic/BuiltinsSim.def"
+        LastTSBuiltin
+    };
+  }
+
   /// MIPS builtins
   namespace Mips {
     enum {
@@ -446,7 +456,7 @@ namespace clang {
        PPC::LastTSBuiltin, NVPTX::LastTSBuiltin, AMDGPU::LastTSBuiltin,
        X86::LastTSBuiltin, VE::LastTSBuiltin, RISCV::LastTSBuiltin,
        Hexagon::LastTSBuiltin, Mips::LastTSBuiltin, XCore::LastTSBuiltin,
-       SystemZ::LastTSBuiltin, WebAssembly::LastTSBuiltin});
+       SystemZ::LastTSBuiltin, WebAssembly::LastTSBuiltin, X52::LastTSBuiltin});
 
 } // end namespace clang.
 
